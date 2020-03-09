@@ -143,18 +143,19 @@ public class PushNotification implements IPushNotification {
 
     protected Notification.Builder getNotificationBuilder(PendingIntent intent) {
 
-        String CHANNEL_ID = "channel_01";
-        String CHANNEL_NAME = "Channel Name";
+        String CHANNEL_ID = "list1";
+        String CHANNEL_NAME = "ListChanged";
 
         final Notification.Builder notification = new Notification.Builder(mContext)
                 .setContentTitle(mNotificationProps.getTitle())
                 .setContentText(mNotificationProps.getBody())
+                .setLargeIcon(getBitmap(mNotificationProps.getLargeIcon()))
                 .setContentIntent(intent)
                 .setDefaults(Notification.DEFAULT_ALL)
                 .setAutoCancel(true);
 
 
-             int resourceID = mContext.getResources().getIdentifier("notification_icon", "drawable", mContext.getPackageName());
+             int resourceID = mContext.getResources().getIdentifier("ic_notif", "drawable", mContext.getPackageName());
                 if (resourceID != 0) {
                     notification.setSmallIcon(resourceID);
                 } else {
@@ -164,7 +165,7 @@ public class PushNotification implements IPushNotification {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel channel = new NotificationChannel(CHANNEL_ID,
                     CHANNEL_NAME,
-                    NotificationManager.IMPORTANCE_DEFAULT);
+                    NotificationManager.IMPORTANCE_HIGH);
             final NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
             notificationManager.createNotificationChannel(channel);
             notification.setChannelId(CHANNEL_ID);

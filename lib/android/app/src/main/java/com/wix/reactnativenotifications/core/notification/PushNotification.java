@@ -23,6 +23,10 @@ import com.wix.reactnativenotifications.core.JsIOHelper;
 import com.wix.reactnativenotifications.core.NotificationIntentAdapter;
 import com.wix.reactnativenotifications.core.ProxyService;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 import static com.wix.reactnativenotifications.Defs.NOTIFICATION_OPENED_EVENT_NAME;
 import static com.wix.reactnativenotifications.Defs.NOTIFICATION_RECEIVED_EVENT_NAME;
 
@@ -139,6 +143,22 @@ public class PushNotification implements IPushNotification {
 
     protected Notification buildNotification(PendingIntent intent) {
         return getNotificationBuilder(intent).build();
+    }
+
+    private Bitmap getBitmap(String image) {
+            return getBitmapFromUrl(image);
+    }
+
+    private Bitmap getBitmapFromUrl(String imageUrl) {
+        try {
+            HttpURLConnection connection = (HttpURLConnection) new URL(imageUrl).openConnection();
+            connection.setDoInput(true);
+            connection.connect();
+            return BitmapFactory.decodeStream(connection.getInputStream());
+        } catch (IOException e) {
+            Log.e("LARGEICON", "Failed to get bitmap for url: " + imageUrl, e);
+            return null;
+        }
     }
 
     protected Notification.Builder getNotificationBuilder(PendingIntent intent) {

@@ -1,5 +1,5 @@
 {
-  "name": "react-native-notif",
+  "name": "react-native-notifications",
   "version": "3.1.5",
   "description": "Advanced Push Notifications (Silent, interactive notifications) for iOS & Android",
   "author": "Lidan Hifi <lidan.hifi@gmail.com>",

@@ -18,6 +18,10 @@ public class PushNotificationProps {
         return mBundle.getString("body");
     }
 
+    public String getLargeIcon() {
+        return mBundle.getString("largeIcon");
+    }
+
     public Bundle asBundle() {
         return (Bundle) mBundle.clone();
     }
